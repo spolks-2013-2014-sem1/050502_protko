@@ -1,7 +1,7 @@
 import socket
 import logging
 
-class EchoServer:
+class EchoServer(object):
     """ Simple echo server on TCP sockets
     """
     def __init__(self, host, port):
@@ -23,34 +23,34 @@ class EchoServer:
         self.sock.listen(1)
         while True:
             client, addr = self.sock.accept()
-            self.__connected(client, addr)
+            self._connected(client, addr)
             while True:
                 data = client.recv(1024)
                 if not data or 'close' == data.rstrip():
                     break
-                self.__progress(data, client, addr)
-            self.__disconnected(client, addr)
+                self._progress(data, client, addr)
+            self._disconnected(client, addr)
             client.close()
 
-    def __connected(self, client, addr):
+    def _connected(self, client, addr):
         """ Starts processing of client connection
         """
         self.logger.debug('Client connected: address %s', addr)
-        client.send('\nType `close` to close connection')
+        self._send('\nType `close` to close connection\n', client)
 
-    def __progress(self, chunk, client, addr):
+    def _progress(self, chunk, client, addr):
         """ Processing of incoming data
         """
         self.logger.debug('Received data from client: %s', addr)
-        self.__send(chunk, client, addr)
+        self._send(chunk, client, addr)
 
-    def __send(self, data, client, addr):
+    def _send(self, data, client, addr):
         """ Sends data to client
         """
         self.logger.debug('Send data to client: %s', addr)
         client.send(data)
 
-    def __disconnected(self, client, addr):
+    def _disconnected(self, client, addr):
         """ Handling client disconnection
         """
         self.logger.debug('Client disconnected: %s', addr)
