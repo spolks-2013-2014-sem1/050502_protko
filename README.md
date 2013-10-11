@@ -12,3 +12,5 @@ All programs requires python 2.7.* to be installed
 To run program just execute command ``python labN``, where N is number of program.
 
 Each program contains detailed instructions, which may be viewed by running target program with ``-h`` flag
+
+To generate random file of fixed size you may want to use command `head -c 100000 /dev/urandom > dummy`, which will generate file `dummy` with size of 100000 bytes
