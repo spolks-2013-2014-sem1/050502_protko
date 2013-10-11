@@ -1,11 +1,3 @@
-TCP/UDP server and client (for study)
+TCP/UDP protocol research
 ========================================
 
-Package includes both server and client.
-
-##Usage
-For more information just run...
-
-`python server --help`
-
-`python client --help`

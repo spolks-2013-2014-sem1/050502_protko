@@ -1,30 +1,29 @@
-import server.worker as worker
-import server.tcp as server
 import argparse
 import signal
 import sys
+import server
+import logging
 
-parser = argparse.ArgumentParser(description='Simple synchtonous TCP server')
-parser.add_argument('port', metavar='PORT', type=int, help='port number')
-parser.add_argument('host', nargs='?', metavar='HOST', default='localhost', 
-                     help='host name (localhost by default)')
+parser = argparse.ArgumentParser(description='Simple Echo TCP Server')
+parser.add_argument('port', type=int, help='Port to listen')
+parser.add_argument('host', nargs='?', default='localhost', help='Hostname to listen (default: localhost)')
+parser.add_argument('--verbose', '-v', action='store_true', help='Display debug information')
 
 args = parser.parse_args()
 
-def graceful_shutdown(signal, frame):
-    s.shutdown()
+# allow to show debug messages in verbose mode
+if args.verbose:
+    logging.basicConfig(level=logging.DEBUG)
+
+
+def exit_gracefully(signal, frame):
     print '\nBye'
+    if s is not None:
+        s.shutdown()
     sys.exit(0)
 
-signal.signal(signal.SIGINT, graceful_shutdown)
+signal.signal(signal.SIGINT, exit_gracefully)
 
-s = server.Tcp(args.host, args.port)
-if not s.bind():
-    print 'Unable to create socket'
-    sys.exit(1)
-
-worker = worker.EchoWorker()
-s.registerWorker(worker)
+s = server.EchoServer(args.host, args.port)
+s.bind()
 s.listen()
-
-
