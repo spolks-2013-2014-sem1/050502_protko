@@ -18,9 +18,13 @@ class FileServer(EchoServer):
             client.close()
 
     def _connected(self, client, addr):
+        """ In our server implementation we no need to check incoming data
+        """
         self.logger.debug('Start sending file to client: %s', addr)
         for chunk in utils.read_file_by_chunks(self.file, 1024):
             self._send(chunk, client, addr)
 
     def _disconnected(self, client, addr):
+        """ Override logging message
+        """
         self.logger.debug('File transition done for client: %s', addr)
