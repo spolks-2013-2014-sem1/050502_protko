@@ -1,3 +1,7 @@
 /.idea
 **.pyc
 /sandbox
+/env
+/build
+/dist
+/net.*
