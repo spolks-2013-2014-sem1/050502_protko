@@ -6,3 +6,5 @@
 /dist
 /net.*
 /*.egg-info
+/files/*
+!/files/.gitkeep
