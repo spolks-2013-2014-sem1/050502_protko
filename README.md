@@ -1,7 +1,7 @@
 TCP/UDP protocol research
 ========================================
 
-Research of socket programming. All programs tested under Debian Squeeze. Please see [architecture overview](blob/master/Architecture.md)
+Research of socket programming. All programs tested under Debian Squeeze. Please see [architecture overview](Architecture.md)
 
 ## Build instruction and requirements
 This implementation requires:
